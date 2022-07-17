@@ -3,9 +3,9 @@ Une classe très simple pour simuler une barre de progression dans Access
 
 V 1.0
 
-[Image01](Doc/img01.png)
+![Image01](Doc/img01.png)
 
-[Image02](Doc/img02.png)
+![Image02](Doc/img02.png)
 
 ## Résumé
 
