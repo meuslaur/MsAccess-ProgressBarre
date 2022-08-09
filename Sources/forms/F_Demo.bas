@@ -19,10 +19,10 @@ Begin Form
     Width =14173
     DatasheetFontHeight =11
     ItemSuffix =71
-    Left =630
-    Top =600
-    Right =15060
-    Bottom =4920
+    Left =6384
+    Top =3552
+    Right =20556
+    Bottom =7620
     RecSrcDt = Begin
         0x5c7a48f85bd8e540
     End
@@ -314,9 +314,9 @@ Begin Form
                     TextFontFamily =18
                     Left =177
                     Top =794
-                    Width =255
-                    Height =300
-                    FontSize =8
+                    Width =219
+                    Height =228
+                    FontSize =10
                     FontWeight =700
                     BorderColor =8355711
                     Name ="lbl_BarreInfo"
@@ -325,8 +325,8 @@ Begin Form
                     GridlineColor =10921638
                     LayoutCachedLeft =177
                     LayoutCachedTop =794
-                    LayoutCachedWidth =432
-                    LayoutCachedHeight =1094
+                    LayoutCachedWidth =396
+                    LayoutCachedHeight =1022
                     ThemeFontIndex =-1
                     BackThemeColorIndex =7
                     BackTint =20.0
@@ -356,10 +356,10 @@ Begin Form
                     PressedColor =9917743
                     HoverForeColor =4210752
                     PressedForeColor =4210752
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -385,10 +385,10 @@ Begin Form
                     PressedColor =9917743
                     HoverForeColor =4210752
                     PressedForeColor =4210752
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin ComboBox
@@ -410,6 +410,7 @@ Begin Form
                     RowSourceType ="Value List"
                     RowSource ="\"a\";\"r\";\"s\";\"w\";\"E\";\"¯\";\"Ù\""
                     ColumnWidths ="1440"
+                    DefaultValue ="\"a\""
                     FontName ="Webdings"
                     GridlineColor =10921638
 
@@ -535,10 +536,10 @@ Begin Form
                     PressedColor =9917743
                     HoverForeColor =4210752
                     PressedForeColor =4210752
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
             End
         End
@@ -587,17 +588,15 @@ Private Sub cmdTestCls_Click()
     Me.cmdTestCls.Enabled = False
     Me.cmdTestFrm.Enabled = False
     Set cTest = New C_TestBarre
-    '//---------Demo-----
 
-
-    '// Code ------------------------
     Set cBarre = cTest.GetClsLabelsInfo()   '// Récupère la classe utiliser par cTest.
-    cBarre.LabelTexte = Me.lbl_TexteInfo    '// Initialise les contrôles d'affichage de l'avancement.
-    cBarre.LabelBarre = Me.lbl_BarreInfo
+    '//---------Demo-----
+    
     '// Code ------------------------
-    If Not IsNull(Me.zlCar) Then cBarre.CaractereAfficher = Me.zlCar    '// Optionnel.
-
-
+    '// Initialise les contrôles d'affichage de l'avancement.
+    cBarre.InitialiseLabels Me.lbl_BarreInfo, Me.lbl_TexteInfo
+    cBarre.SetLengthBarre Me.zlCar, Me.txtBoucle
+    '// Code ------------------------
 
     '//---------Demo-----
     cTest.BoucleTestCls Me.txtBoucle          '// Lance le test
@@ -605,6 +604,8 @@ Private Sub cmdTestCls_Click()
     Me.cmdTestCls.Enabled = True
     Me.cmdTestFrm.Enabled = True
     '//---------Demo-----
+
+    Me.lbl_TexteInfo.Caption = "Fin"
 
 End Sub
 
@@ -621,18 +622,15 @@ Private Sub cmdTestFrm_Click()
     '//---------Demo-----
 
 
-
     '// Code ------------------------
     Set cBarre = New C_LabelsInfo
-    cBarre.LabelBarre = Me.lbl_BarreInfo    '// Initialiser la barre AVANT de définir sa longueur.
-    cBarre.LabelTexte = Me.lbl_TexteInfo
-    cBarre.InitialiseBarre Me.txtBoucle
+    cBarre.InitialiseLabels Me.lbl_BarreInfo, Me.lbl_TexteInfo
+    cBarre.SetLengthBarre Me.zlCar, Me.txtBoucle
     '// Code ------------------------
 
 
 
     '//---------Demo-----
-    If Not IsNull(Me.zlCar) Then cBarre.CaractereAfficher = Me.zlCar
     BoucleTestFrm Me.txtBoucle
     DoCmd.Hourglass False
     Me.cmdTestCls.Enabled = True
@@ -666,5 +664,7 @@ Private Sub BoucleTestFrm(Boucle As Long)
         Sleep (lRand)
    Next i
     '//---------Demo-----
+
+    Me.lbl_TexteInfo.Caption = "Fin"
 
 End Sub

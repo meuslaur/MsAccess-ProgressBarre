@@ -39,8 +39,6 @@ Public Sub BoucleTestCls(Boucle As Long)
     Dim lRand As Long
     Dim sAvance As String
 
-    LabelsInfo.InitialiseBarre Boucle       '// Initialise la taille de la barre...
-
     For i = 1 To Boucle
         lRand = Int((700 * Rnd) + 1)
         sAvance = "Boucle : " & str(i)

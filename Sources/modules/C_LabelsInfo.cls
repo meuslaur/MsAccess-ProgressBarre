@@ -9,104 +9,153 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("Dev")
 ' ------------------------------------------------------
-' Name     : C_LabelsInfo
+' Name     : C_TradUtils
 ' ------------------------------------------------------
 ' Kind     : Module de classe
-' Purpose  : Affichage de texte de d'avancement du code dans un formulaire.
+' Purpose  : Outils pour l'app TradAccess
 ' Author   : Laurent
 ' Sujet    :
 ' Objectif :
 ' Date     : 03/07/2022 - 18:01
-' DateMod  : 10/07/2022 - 15:07
+' DateMod  : 09/08/2022 - 17:39
 ' ------------------------------------------------------
 Option Compare Database
 Option Explicit
 
 '//::::::::::::::::::::::::::::::::::    VARIABLES      ::::::::::::::::::::::::::::::::::
-    Private Const LARG_CAR  As Long = 182       '// !!! Largeur 1 Caractèrre, Police Webdings size 8 !!!.
-    Private Const CAR_BAR   As String * 1 = "a" '// Defaut caractère a afficher dans la barre (police Webdings).
+    Private Const LARG_CAR As Long = 178    '// Largeur 1 Caractèrre, Police Webdings size 8, 'TODO: Tester dans d'autre rédolutions
 
-    Private m_oLblTexte     As Access.Label     '// Label texte d'info.
-    Private m_oLblBarre     As Access.Label     '// Label barre.
+    Private m_LblTexte  As Access.Label     '// Label texte d'info.
+    Private m_LblBarre  As Access.Label     '// Label barre.
 
-    Private m_lCompte       As Long             '// Compteur pour la barre d'avancement.
-    Private m_CarBarre      As String * 1       '// Caractère à afficher dans la barre (m_oLblBarre).
+    Private m_BarreUp   As Boolean          '// Indique si on utilise le label barre.
+    Private m_TexteUp   As Boolean          '// Indique si on utilise le label Texte.
+
+    Private m_lblHeight As Long             '// Dimension label barre.
+    Private m_lblWidth  As Long
+
+    Private m_CharBar   As String * 1       '// Caractère à afficher dans la barre.
+    Private m_NbChar    As Long             '// Nb de caractère total a afficher.
+
+    Private m_lCompte   As Long             '// Compteur pour la barre d'avancement.
 '//:::::::::::::::::::::::::::::::::: END VARIABLES ::::::::::::::::::::::::::::::::::::::
 
 '//----------------------------------       INIT/TERM       ------------------------------
-Private Sub Class_Initialize()
-    m_CarBarre = CAR_BAR
-End Sub
+'Private Sub Class_Initialize()
+'
+'End Sub
 
 Private Sub Class_Terminate()
-    Set m_oLblTexte = Nothing
-    Set m_oLblBarre = Nothing
+    Set m_LblTexte = Nothing
+    Set m_LblBarre = Nothing
 End Sub
+
 '//---------------------------------------------------------------------------------------
 
 '//==================================       PROP        ==================================
-Public Property Let LabelTexte(LabelInfo As Access.Label)
-     Set m_oLblTexte = LabelInfo
+Public Property Get BarreIsUp() As Boolean
+    BarreIsUp = m_BarreUp
 End Property
-Public Property Let LabelBarre(LabelBarre As Access.Label)
-    Set m_oLblBarre = LabelBarre
+Public Property Let BarreIsUp(ActiveBarre As Boolean)
+    m_BarreUp = ActiveBarre
 End Property
-Public Property Let CaractereAfficher(Caractere As String)
-    If (Len(Caractere) <> 1) Then Exit Property
-    m_CarBarre = Caractere
+Public Property Get TexteIsUp() As Boolean
+    TexteIsUp = m_TexteUp
+End Property
+Public Property Let TexteIsUp(ActiveTexte As Boolean)
+    m_TexteUp = ActiveTexte
 End Property
 '//====================================== END PROP =======================================
 
 '// \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ PUBLIC SUB/FUNC   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-Public Sub InitialiseBarre(LongueurBarre As Long)
 
-    If (m_oLblBarre Is Nothing) Then Exit Sub
-    If (LongueurBarre < 1) Or (LongueurBarre > 75) Then Exit Sub    '// Definir les limites min et max. (nb de caractère afficher)
+'----------------------------------------------------------------
+'// Initialise les label (pour le texte et pour la barre d'avancement)
+'----------------------------------------------------------------
+Public Sub InitialiseLabels(LabelBarre As Access.Label, LabelTexte As Access.Label)
 
-    m_oLblBarre.Width = LARG_CAR * LongueurBarre    '// Détermine la dimension de la barre.
+    If (Not LabelBarre Is Nothing) Then Set m_LblBarre = LabelBarre: m_BarreUp = True
+    If (Not LabelTexte Is Nothing) Then Set m_LblTexte = LabelTexte: m_TexteUp = True
+
+    If (m_LblTexte Is Nothing) And (m_LblBarre Is Nothing) Then Exit Sub
+
     m_lCompte = 1
 
 End Sub
 
-Public Sub ResetLabels()
-'// Permet d'utiliser differents labels, ou Afficher autre chose.
-    Set m_oLblTexte = Nothing
-    Set m_oLblBarre = Nothing
-End Sub
-
 '----------------------------------------------------------------
-' Procedure Nom   : AfficheBarre
-' ----------------------------------------------------------------
-' Sujet           : Affiche de texte et barre d'avancement du code.
-' Procedure Kind  : Sub
-' Procedure Access: Public
-' Objectif        :
+'// CharBarre 1 caractère, NbChar nombre total de car à affiche.
+'//     SetLengthBarre "a",25
+'----------------------------------------------------------------
+Public Sub SetLengthBarre(CharBarre As String, NbChar As Long)
+
+    m_CharBar = Left$(CharBarre, 1)
+    m_NbChar = IIf(NbChar > 70, 70, NbChar) '// Limite à 70 caractères.
+
+    '// Détermine la taille de la barre...
+    InitialiseTailleBarre
+
+End Sub
+'----------------------------------------------------------------
+' Sujet : Affiche de texte et de l'avancement
 '
 '=== Paramètres ===
-' sObjNom (String)  : Texte à afficher.
+' NewTexte (String)  : Texte à afficher.
 '==================
 '
 ' Author  : Laurent
 ' Date    : 03/07/2022 - 17:50
-' DateMod :
+' DateMod : 09/08/2022 - 17:26
 ' ----------------------------------------------------------------
 Public Sub UpdateBarre(NewTexte As String)
-On Error GoTo ERR_testBarre
+On Error GoTo ERR_UpdateBarre
 
-    If (Not m_oLblTexte Is Nothing) Then m_oLblTexte.Caption = NewTexte & "....."
-
-    If (Not m_oLblBarre Is Nothing) Then
-        m_oLblBarre.Caption = String(m_lCompte, m_CarBarre)
-        m_lCompte = m_lCompte + 1
+    If (TexteIsUp) Then
+        m_LblTexte.Caption = NewTexte & "....."
     End If
 
-SORTIE_testBarre:
+    If (Not BarreIsUp) Then Exit Sub
+
+    m_LblBarre.Caption = String(m_lCompte, m_CharBar)
+    m_lCompte = m_lCompte + 1
+
+SORTIE_UpdateBarre:
     Exit Sub
 
-ERR_testBarre:
+ERR_UpdateBarre:
     MsgBox "Erreur " & Err.Number & vbCrLf & _
-            " (" & Err.Description & ")" & vbCrLf & _
-            "Dans  TradAccess.MD_Test.testBarre, ligne " & Erl & "."
-    Resume SORTIE_testBarre
+            " (" & Err.Description & ")", vbCritical, _
+            "C_LabelsInfo.UpdateBarre"
+    Resume SORTIE_UpdateBarre
 End Sub
+
 '// \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ END PUB. SUB/FUNC \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+'// ################################ PRIVATE SUB/FUNC ####################################
+
+'----------------------------------------------------------------
+' Sujet   : Détermine la taille de la brre d'vancement
+' Author  : Laurent
+' Date    : 09/08/2022 - 17:31
+' DateMod :
+' ----------------------------------------------------------------
+Private Sub InitialiseTailleBarre()
+    
+    Dim lWidth  As Long
+    Dim lHeight As Long
+    Dim sTexte  As String
+
+    sTexte = String(m_NbChar, m_CharBar)
+
+    WizHook.Key = 51488399
+    WizHook.TwipsFromFont m_LblBarre.FontName, m_LblBarre.FontSize, m_LblBarre.FontWeight, _
+                          m_LblBarre.FontItalic, m_LblBarre.FontUnderline, 0, _
+                          sTexte, 0, lWidth, lHeight
+
+    m_LblBarre.Width = lWidth + 50  '// + 50 pour la marge droite
+    m_LblBarre.Height = lHeight
+
+End Sub
+
+'// ################################# END PRIV. SUB/FUNC #################################
+
