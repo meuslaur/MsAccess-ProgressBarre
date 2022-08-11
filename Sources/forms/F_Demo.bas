@@ -18,11 +18,11 @@ Begin Form
     GridY =10
     Width =14173
     DatasheetFontHeight =11
-    ItemSuffix =71
-    Left =6384
-    Top =3552
-    Right =20556
-    Bottom =7620
+    ItemSuffix =72
+    Left =1548
+    Top =1584
+    Right =15720
+    Bottom =5652
     RecSrcDt = Begin
         0x5c7a48f85bd8e540
     End
@@ -272,23 +272,6 @@ Begin Form
                     Visible = NotDefault
                     OverlapFlags =85
                     Left =170
-                    Top =113
-                    Width =1935
-                    Height =315
-                    BorderColor =8355711
-                    Name ="lbl_InfoScan1"
-                    Caption ="Code :"
-                    GridlineColor =10921638
-                    LayoutCachedLeft =170
-                    LayoutCachedTop =113
-                    LayoutCachedWidth =2105
-                    LayoutCachedHeight =428
-                    ForeTint =100.0
-                End
-                Begin Label
-                    Visible = NotDefault
-                    OverlapFlags =85
-                    Left =170
                     Top =453
                     Width =7935
                     Height =285
@@ -309,6 +292,7 @@ Begin Form
                     Visible = NotDefault
                     FontItalic = NotDefault
                     OldBorderStyle =1
+                    BorderWidth =1
                     OverlapFlags =85
                     TextFontCharSet =2
                     TextFontFamily =18
@@ -449,9 +433,8 @@ Begin Form
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="txtBoucle"
-                    ValidationRule ="<71"
                     ValidationText ="Max 70 pour ce form"
-                    DefaultValue ="20"
+                    DefaultValue ="119"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =2267
@@ -570,7 +553,6 @@ Option Explicit
 
 Private Sub cmdCloseFrm_Click()
     '//---------Demo-----
-    If Not cTest Is Nothing Then cTest.ResetClsLabelsInfo
     Set cTest = Nothing
     Set cBarre = Nothing
     DoEvents
@@ -579,48 +561,30 @@ Private Sub cmdCloseFrm_Click()
 End Sub
 
 Private Sub cmdTestCls_Click()
-    '//---------Demo-----
-    ResetCls
-    Me.lbl_TexteInfo.Visible = True
-    Me.lbl_BarreInfo.Visible = True
-    DoCmd.Hourglass True
-    zlCar.SetFocus
-    Me.cmdTestCls.Enabled = False
-    Me.cmdTestFrm.Enabled = False
-    Set cTest = New C_TestBarre
 
-    Set cBarre = cTest.GetClsLabelsInfo()   '// Récupère la classe utiliser par cTest.
+    '//---------Demo-----
+    LanceDemo True
+    Set cTest = New C_TestBarre
     '//---------Demo-----
     
     '// Code ------------------------
-    '// Initialise les contrôles d'affichage de l'avancement.
+    Set cBarre = cTest.GetClsLabelsInfo()   '// Récupère la classe utiliser par cTest.
     cBarre.InitialiseLabels Me.lbl_BarreInfo, Me.lbl_TexteInfo
     cBarre.SetLengthBarre Me.zlCar, Me.txtBoucle
     '// Code ------------------------
 
     '//---------Demo-----
-    cTest.BoucleTestCls Me.txtBoucle          '// Lance le test
-    DoCmd.Hourglass False
-    Me.cmdTestCls.Enabled = True
-    Me.cmdTestFrm.Enabled = True
+    cTest.BoucleTestCls (Me.txtBoucle)
+    LanceDemo False
     '//---------Demo-----
-
-    Me.lbl_TexteInfo.Caption = "Fin"
 
 End Sub
 
 
 Private Sub cmdTestFrm_Click()
     '//---------Demo-----
-    ResetCls
-    Me.lbl_TexteInfo.Visible = True
-    Me.lbl_BarreInfo.Visible = True
-    DoCmd.Hourglass True
-    zlCar.SetFocus
-    Me.cmdTestCls.Enabled = False
-    Me.cmdTestFrm.Enabled = False
+    LanceDemo True
     '//---------Demo-----
-
 
     '// Code ------------------------
     Set cBarre = New C_LabelsInfo
@@ -629,25 +593,14 @@ Private Sub cmdTestFrm_Click()
     '// Code ------------------------
 
 
-
     '//---------Demo-----
-    BoucleTestFrm Me.txtBoucle
-    DoCmd.Hourglass False
-    Me.cmdTestCls.Enabled = True
-    Me.cmdTestFrm.Enabled = True
+    BoucleDemo Me.txtBoucle
+    LanceDemo False
     '//---------Demo-----
 
 End Sub
 
-Private Sub ResetCls()
-    '//---------Demo-----
-    '// Pour la démo test
-    Set cTest = Nothing
-    Set cBarre = Nothing
-    '//---------Demo-----
-End Sub
-
-Private Sub BoucleTestFrm(Boucle As Long)
+Private Sub BoucleDemo(Boucle As Long)
     '//---------Demo-----
     Dim i As Long
     Dim lRand As Long
@@ -665,6 +618,34 @@ Private Sub BoucleTestFrm(Boucle As Long)
    Next i
     '//---------Demo-----
 
-    Me.lbl_TexteInfo.Caption = "Fin"
+End Sub
 
+Private Sub LanceDemo(Active As Boolean)
+
+
+    Me.lbl_TexteInfo.Visible = Active
+    Me.lbl_BarreInfo.Visible = Active
+    DoCmd.Hourglass Active
+
+    Me.txtBoucle.SetFocus
+    Me.cmdCloseFrm.Enabled = Not Active
+    Me.cmdTestCls.Enabled = Not Active
+    Me.cmdTestFrm.Enabled = Not Active
+
+    If (Not Active) Then
+        Me.lbl_TexteInfo.Caption = "Fin"
+        Me.lbl_BarreInfo.Caption = vbNullString
+        ResetCls
+    Else
+        Set cTest = New C_TestBarre
+    End If
+
+End Sub
+
+Private Sub ResetCls()
+    '//---------Demo-----
+    '// Pour la démo test
+    Set cTest = Nothing
+    Set cBarre = Nothing
+    '//---------Demo-----
 End Sub

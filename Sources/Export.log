@@ -3,7 +3,7 @@ Beginning Export of all Source
 MsAccessBarreInfo.accdb
 VCS Version 3.4.23
 Using Fast Save
-09/08/2022 18:10:58
+11/08/2022 16:57:06
 -------------------------------------
 -------------------------------------
 Exporting project...          
@@ -72,7 +72,7 @@ Exporting nav pane groups...
 -------------------------------------
 No modified hidden attributes found in this database.
 -------------------------------------
-Done. (0,62 seconds)
+Done. (0,65 seconds)
 
 --------------------------------------------------
                 PERFORMANCE REPORTS
@@ -80,25 +80,25 @@ Done. (0,62 seconds)
 Object Type                   Count     Seconds
 --------------------------------------------------
 Project                       1         0,02
-VB Project                    1         0,02
-VBE References                1         0,02
-Proj Properties               2         0,01
-DB Properties                 50        0,22
+VB Project                    1         0,03
+VBE References                1         0,03
+Proj Properties               2         0,02
+DB Properties                 50        0,23
 Themes                        1         0,01
-Forms                         1         0,06
+Forms                         1         0,07
 Modules                       2         0,03
-Doc Properties                5         0,02
-Nav Pane Groups               1         0,02
+Doc Properties                5         0,03
+Nav Pane Groups               1         0,03
 --------------------------------------------------
-TOTALS:                       65        0,44
+TOTALS:                       65        0,47
 --------------------------------------------------
 
 --------------------------------------------------
 Operations                    Count     Seconds
 --------------------------------------------------
-Read File                     9         0,01
+Read File                     9         0,05
 Parse JSON                    8         0,01
-Convert to JSON               438       0,26
+Convert to JSON               438       0,27
 Compute SHA256                16        0,00
 Console Updates               2         0,04
 Compare Dictionary            6         0,00
@@ -117,7 +117,7 @@ Get VBA Hash                  6         0,00
 Export VBE Module             2         0,02
 Enc. Windows-1252 as utf-8    2         0,00
 --------------------------------------------------
-Other Operations                        0,22
+Other Operations                        0,23
 --------------------------------------------------
 
 

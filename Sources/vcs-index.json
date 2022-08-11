@@ -6,31 +6,31 @@
   "Items": {
     "MergeBuildDate": null,
     "FullBuildDate": null,
-    "ExportDate": "09/08/2022 18:10:58",
+    "ExportDate": "11/08/2022 16:57:07",
     "FullExportDate": "17/07/2022 18:44:23",
     "OptionsHash": "6a5586b",
     "LastMergedCommit": "",
     "Components": {
       "Forms": {
         "F_Demo.bas": {
-          "Hash": "3d30811",
-          "ExportDate": "09/08/2022 18:10:58",
-          "SourceModified": "09/08/2022 18:10:58",
-          "FilePropertiesHash": "7104b80"
+          "Hash": "a42c2b3",
+          "ExportDate": "11/08/2022 16:57:07",
+          "SourceModified": "11/08/2022 16:57:07",
+          "FilePropertiesHash": "9a0be74"
         }
       },
       "Modules": {
         "C_LabelsInfo.cls": {
-          "Hash": "05a4379",
-          "ExportDate": "09/08/2022 18:10:58",
-          "SourceModified": "09/08/2022 18:10:58",
-          "FilePropertiesHash": "2108771"
+          "Hash": "994b3c3",
+          "ExportDate": "11/08/2022 16:57:07",
+          "SourceModified": "11/08/2022 16:57:07",
+          "FilePropertiesHash": "64eb0c3"
         },
         "C_TestBarre.cls": {
-          "Hash": "1e59dd1",
-          "ExportDate": "09/08/2022 18:10:58",
-          "SourceModified": "09/08/2022 18:10:58",
-          "FilePropertiesHash": "6946461"
+          "Hash": "ecdad41",
+          "ExportDate": "11/08/2022 16:57:07",
+          "SourceModified": "11/08/2022 16:57:07",
+          "FilePropertiesHash": "7408bf6"
         },
         "MD_Api.bas": {
           "Hash": "e868525",
@@ -42,7 +42,7 @@
       "Project": {
         "project.json": {
           "Hash": "19c3478",
-          "ExportDate": "09/08/2022 18:10:58",
+          "ExportDate": "11/08/2022 16:57:07",
           "SourceModified": "17/07/2022 18:44:22",
           "FilePropertiesHash": "2aba8d2"
         }
@@ -50,7 +50,7 @@
       "VB Project": {
         "vbe-project.json": {
           "Hash": "0733ba2",
-          "ExportDate": "09/08/2022 18:10:58",
+          "ExportDate": "11/08/2022 16:57:07",
           "SourceModified": "17/07/2022 18:44:22",
           "FilePropertiesHash": "d9b87fa"
         }
@@ -58,7 +58,7 @@
       "VBE References": {
         "vbe-references.json": {
           "Hash": "097af6a",
-          "ExportDate": "09/08/2022 18:10:58",
+          "ExportDate": "11/08/2022 16:57:07",
           "SourceModified": "17/07/2022 18:44:22",
           "FilePropertiesHash": "ef04636"
         }

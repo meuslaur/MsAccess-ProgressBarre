@@ -27,7 +27,6 @@ End Sub
 '//---------------------------------------------------------------------------------------
 
 '//==================================       PROP        ==================================
-
 Public Property Get GetClsLabelsInfo() As C_LabelsInfo
     If Not (LabelsInfo Is Nothing) Then Set GetClsLabelsInfo = LabelsInfo
 End Property
@@ -47,10 +46,6 @@ Public Sub BoucleTestCls(Boucle As Long)
         DoEvents
         Sleep (lRand)
    Next i
-End Sub
-
-Public Sub ResetClsLabelsInfo()
-    Set LabelsInfo = Nothing    '// Demo Fermeture du frm démo.
 End Sub
 
 '// ################################# END PRIV. SUB/FUNC #################################
