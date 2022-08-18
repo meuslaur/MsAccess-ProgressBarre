@@ -1,0 +1,93 @@
+Welcome to the MsAccess-ProgressBarre wiki!
+
+Utilisation :
+
+	Insérez les 2 classes C_LabelsInfo et C_LabelsInfoItem dans votre application.
+
+Création des labels dans le formulaire :
+
+Créer les labels dans le formulaire
+(optionnel) 1 label pour afficher le texte : ex lblText1
+(optionnel) 1 label pour la barre d'avancement : ex lblBar1
+(optionnel) 1 label pour afficher le second texte : ex lblText2
+(optionnel) 1 label pour la seconde barre d'avancement : ex lblBar2
+
+vous pouvez créer les labels suivant vos besoins 1 ou 2 ou 3 ou 4 (1 minimum sinon cette classe ne serviras à rien).
+
+Définissez la propriété Visible à false pour tous les labels barre et texte.
+Définissez la police des labels barre sur une police graphique (ex Webdings, Wingdings ...)
+Inutile de définir ses dimensions elles seront redimensionnées automatiquement suivant le texte à afficher.
+Paramétrez les labels pour le texte suivant vos besoins.
+
+code :
+
+Je vaos prendre l'exemeple dans une utilisation dasn une classe ou un module, l'utilisation dans un formulaire n'as que peu d'interet, c'est juste pour l'exemple.
+
+
+définissez la variable de la classe
+    Private cLabels  As C_LabelsInfo
+Initialisez la suivant les besoins ex :
+
+Private Sub Class_Initialize()
+    Set cLabels = New C_LabelsInfo
+End Sub
+
+Dans le formulaire, 
+	récuperer l'instance de la classe créer dans le module ou la classe : ex :
+
+	Set cLabels = cDemo.GetClsLabelsInfo()
+
+ex prop dans une classe :
+
+Private cLabels  As C_LabelsInfo
+
+Private Sub Class_Initialize()
+    Set cLabels = New C_LabelsInfo
+End Sub
+
+Public Property Get GetClsLabelsInfo() As C_LabelsInfo
+    If Not (cLabels Is Nothing) Then Set GetClsLabelsInfo = cLabels
+End Property
+
+Toujours dans le formulaire, avant de lancer votre code initialisez les labels
+
+    cLabels.InitialiseLabels me.lblBar1, me.lblText1, me.lblBar2, me.lblTxt2
+
+    Si vous ne vous servez pas de la barre 1(lblBar1) ou texte 1(lblText11), passez la valeur Nothing ex :
+    cLabels.InitialiseLabels me.lblBar1, Nothing
+
+c'est le seul code a inserer dans le formulaire le reste se fait dans le module ou la classe.
+
+
+Dans le code :
+
+initialisez la barre (optionnel si vous vous en servez pas): ex :
+	cLabels.SetLengthBarre "a", oRstSys.RecordCount
+le caractère "a" depend de la police utiliser, ici pour webding cela affiche une coche.
+
+Dans le code affichez l'avancement avec :
+
+Do While Not oRst.EOF
+
+    ' votre code ...
+
+    sBarTxt = "Message texte pour lblTxt"
+    cLabels.UpdateBarre sBarTxt 
+    DoEvents
+
+    ' votre code ...
+
+Loop
+
+cLabels.HiddenCurrentLabels
+
+Détruisez l'objet une fois terminer (form_Close, Class_Terminate ou autre)
+
+Consultez les formulaires de démo, F_Demo pour utilisation paramètrable, ou le formulaire F_Demo2 avec le minimum de code démo.
+
+
+
+
+
+
+
