@@ -1,7 +1,9 @@
 # MsAccessBarre
 Une classe très simple pour simuler une barre de progression dans Access
 
-V 1.0
+V 1.2 (2022/08/18)
+
+# Doc voir le wiki
 
 ![Image01](Doc/img01.png)
 

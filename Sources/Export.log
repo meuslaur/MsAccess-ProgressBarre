@@ -3,7 +3,7 @@ Beginning Export of all Source
 MsAccessBarreInfo.accdb
 VCS Version 3.4.23
 Using Fast Save
-18/08/2022 12:14:21
+18/08/2022 13:15:46
 -------------------------------------
 -------------------------------------
 Exporting project...          
@@ -55,9 +55,7 @@ No modified reports found in this database.
 -------------------------------------
 No modified table data found in this database.
 -------------------------------------
-Exporting modules...          
-  C_Demo2
-[1] modules processed.
+No modified modules found in this database.
 -------------------------------------
 No modified table data macros found in this database.
 -------------------------------------
@@ -73,7 +71,7 @@ Exporting nav pane groups...
 -------------------------------------
 No modified hidden attributes found in this database.
 -------------------------------------
-Done. (0,74 seconds)
+Done. (0,64 seconds)
 
 --------------------------------------------------
                 PERFORMANCE REPORTS
@@ -83,42 +81,39 @@ Object Type                   Count     Seconds
 Project                       1         0,02
 VB Project                    1         0,02
 VBE References                1         0,02
-Proj Properties               2         0,02
+Proj Properties               2         0,01
 DB Properties                 50        0,22
 Themes                        1         0,01
-Forms                         2         0,13
-Modules                       1         0,02
+Forms                         2         0,12
 Doc Properties                5         0,02
 Nav Pane Groups               1         0,02
 --------------------------------------------------
-TOTALS:                       65        0,49
+TOTALS:                       64        0,45
 --------------------------------------------------
 
 --------------------------------------------------
 Operations                    Count     Seconds
 --------------------------------------------------
-Read File                     10        0,02
+Read File                     10        0,00
 Parse JSON                    8         0,01
 Convert to JSON               438       0,26
-Compute SHA256                18        0,00
-Console Updates               2         0,04
+Compute SHA256                16        0,00
+Console Updates               2         0,05
 Compare Dictionary            6         0,00
-Get Modified Date             6         0,00
-Get File Property Hash        6         0,00
-Verify Path                   7         0,00
+Get Modified Date             5         0,00
+Get File Property Hash        5         0,00
+Verify Path                   6         0,00
 Create Folder                 1         0,00
 Export Theme                  1         0,00
 Clear Orphaned                2         0,01
-App.SaveAsText()              2         0,05
+App.SaveAsText()              2         0,04
 Delete File                   2         0,00
 Read File Bytes               2         0,02
 Sanitize File                 2         0,02
 Write File                    3         0,00
-Get VBA Hash                  8         0,00
-Export VBE Module             1         0,01
-Enc. Windows-1252 as utf-8    1         0,00
+Get VBA Hash                  7         0,00
 --------------------------------------------------
-Other Operations                        0,30
+Other Operations                        0,23
 --------------------------------------------------
 
 

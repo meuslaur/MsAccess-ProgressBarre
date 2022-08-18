@@ -920,7 +920,7 @@ Begin Form
                     BorderColor =8355711
                     Name ="lblDoc"
                     Caption ="Doc ..."
-                    HyperlinkAddress ="https://github.com/meuslaur/MsAccess-ProgressBarre"
+                    HyperlinkAddress ="https://github.com/meuslaur/MsAccess-ProgressBarre/wiki"
                     GridlineColor =10921638
                     LayoutCachedLeft =12415
                     LayoutCachedTop =5272
@@ -928,7 +928,6 @@ Begin Form
                     LayoutCachedHeight =5584
                     ForeThemeColorIndex =10
                     ForeTint =100.0
-                    HyperlinkBinderDescription ="1|https://github.com|2|meuslaur|2|MsAccess-ProgressBarre"
                 End
                 Begin Image
                     SizeMode =0
