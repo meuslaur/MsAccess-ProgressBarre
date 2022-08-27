@@ -25,7 +25,7 @@ Option Explicit
 '//::::::::::::::::::::::::::::::::::    VARIABLES      ::::::::::::::::::::::::::::::::::
     Private Const MAX_LENG As Long = 50     '// Nb Max d'itérations, reprend à 0 si atteint.
 
-    Private Enum T_Coul
+    Private Enum eCoul
         CoulA = 8630772     '// Début (Orange)
         CoulB = 6740479     '// Milieu (Bleu)
         CoulC = 9359785     '// Fin (Vert)
@@ -96,11 +96,11 @@ End Sub
 '----------------------------------------------------------------
 Public Sub SetLengthBarre(CharBarre As String, NbChar As Long, Optional NumLabel As eNumLabel = LabelNum1)
 
-    If (NbChar < 1) Then Exit Sub                       'TODO: ERR ->Gestionnaire d'erreur / msg.
-    If (Len(CharBarre) <> 1) Then Exit Sub              'TODO: ERR ->Gestionnaire d'erreur / msg.
-
     Set mLblBar = colLabels("B" & CStr(NumLabel))
     Set mLblTxt = colLabels("T" & CStr(NumLabel))
+
+    If (NbChar < 1) Then Exit Sub                       'TODO: ERR ->Gestionnaire d'erreur / msg.
+    If (Len(CharBarre) <> 1) Then Exit Sub              'TODO: ERR ->Gestionnaire d'erreur / msg.
 
     mCurLabel = NumLabel
 
@@ -204,7 +204,7 @@ End Sub
 
 Private Sub CalculCoul(CurNbChar As Long)
 
-    Dim lCoul As T_Coul
+    Dim lCoul As eCoul
 
     Select Case CurNbChar
         Case Is > (MAX_LENG * 2)
