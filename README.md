@@ -1,3 +1,5 @@
+<img align="left" src="https://github.com/meuslaur/meuslaur/blob/main/Logo_MsAccess.png" width="64px">
+
 # MsAccessBarre
 Une classe très simple pour simuler une barre de progression dans Access
 
